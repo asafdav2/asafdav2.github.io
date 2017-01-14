@@ -11,8 +11,8 @@ author:
   email: asafdav2@gmail.com
   twitter_username: asafdavid
   facebook_username: ipitythefooblog
-  github_username:  asafdav2
-  linkedin_username:  asafdavid
+  github_username: asafdav2
+  linkedin_username: asafdavid
 
 defaults:
   -
@@ -27,7 +27,7 @@ destination: _site
 paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 
 kramdown:
   # use Github Flavored Markdown
