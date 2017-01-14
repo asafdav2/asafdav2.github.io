@@ -1,0 +1,39 @@
+# Site settings
+title: I pity the foo!
+description: "Asaf's technical blog"
+url: 'https://asafdav2.github.io/'
+baseurl: '/'
+google_analytics: 'UA-54999211-2'
+disqus_shortname: 'i-pity-the-foo'
+
+author:
+  name: 'Asaf David'
+  email: asafdav2@gmail.com
+  twitter_username: asafdavid
+  facebook_username: ipitythefooblog
+  github_username:  asafdav2
+  linkedin_username:  asafdavid
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: pygments
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock']

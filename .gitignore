@@ -1,0 +1,7 @@
+_site
+.idea
+.sass-cache
+.jekyll-metadata
+*.sublime-project
+*.sublime-workspace
+.DS_Store
