@@ -75,7 +75,7 @@ the currently running function completes.
 You could return a promise resolving to that value, for example `return Promise.resolve(true)`.
 
 ### Can callbacks be used with promises or is it one way or the other?
-Callbacks and promises can be used together. For example, the following method calls a callback and returns a promise
+Callbacks and promises can be used together. For example, the following method calls a callback and returns a promise:
 {% highlight javascript %}
 function foo(cb) {
   // do some processing
@@ -87,10 +87,10 @@ function foo(cb) {
 {% endhighlight %}
 
 ### What are the major differences between spawn, exec, and fork?
-  * `exec` methods spawns a shell and then executes a command within that shell, buffering any generated output.
-  * `spawn` works similarly to `exec`. The main difference is that `spawn` returns the process output as a stream while `exec` returns it as a buffer.
+  * `exec` methods spawns a shell and then executes a command within that shell, buffering any generated output
+  * `spawn` works similarly to `exec`. The main difference is that `spawn` returns the process output as a stream while `exec` returns it as a buffer
   * `fork` is a special case of `spawn` that also creates a new V8 engine instance. This is useful to create additional
-workers of the same Node.js code base. (for example, in the [cluster module](https://nodejs.org/api/cluster.html))
+workers of the same Node.js code base. (for example, in the [cluster module](https://nodejs.org/api/cluster.html)).
 
 ### How does the cluster module work? How is it different than using a load balancer?
 The [cluster module](https://nodejs.org/api/cluster.html) works by forking the server into several worker processes (all run
@@ -100,12 +100,11 @@ round-robin fashion (with some built-in smarts to avoid overloading a worker pro
 A load balancer, in contrast, is used to distribute incoming connections across *multiple hosts*.
 
 ### What are the `--harmony-*` flags?
-These flags allowed to enable ECMAScript 2015 (ES6) features which were not considered stable by the V8 team. Today, recent versions
-of node are considered [99% complete](http://node.green/) so the usage of these flags is generally not needed.
+These are flags that one can pass to the Node.js runtime to enable **Staged** features. 
+Staged features are almost-completed features that are not considered stable by the V8 team.
 
 ### How can you read and inspect the memory usage of a Node.js process?
-You can use a tool such as [node-heapdump](https://github.com/bnoordhuis/node-heapdump) to take a snapshot of the heap. This snapshot can
-be later opened in Chrome developer tools for inspection.
+You can invoke the [`process.memoryUsage()`](https://nodejs.org/api/process.html#process_process_memoryusage<Paste>) method which returns an object describing the memory usage of the Node.js process, measured in bytes.
 
 ### Can reverse-search in commands history be used inside Node’s REPL?
 Currently it seems like its not possible. The Node REPL does allow to persist the history into a file and later load it, but doesn't allow
@@ -124,8 +123,7 @@ callback based notifications of I/O and other activities. In addition, libuv off
 support, asynchronous file system access, child processes and more.
 
 ### How can you make Node’s REPL always use JavaScript strict mode?
-When starting the REPL (using [`repl.start`](https://nodejs.org/api/repl.html#repl_repl_start_options) method) we can pass an `options` object.
-One of the options is `replMode`, which specifies the whether the default evaluator executes all JavaScript commands in strict mode, default mode, or a hybrid mode
+You can run Node.js with the `--use_strict` which will open the REPL in strict mode.
 
 ### What is process.argv? What type of data does it hold?
 The `process.argv` property returns an array containing the command line arguments passed when the Node.js process
@@ -133,7 +131,7 @@ was launched. The first element will be `process.execPath`. The second element w
 being executed. The remaining elements will be any additional command line arguments.
 
 ### How can we do one final operation before a Node process exits? Can that operation be done asynchronously?
-By registering a handler for `process.on('exit')`
+By registering a handler for `process.on('exit')`:
 
 {% highlight javascript %}
 function exitHandler(options, err) {
@@ -160,11 +158,11 @@ The following dot commands can be used:
 ### Besides V8 and libuv, what other external dependencies does Node have?
 Beside V8 and libuv, node has several other dependencies:
 
-* [http-parser](https://github.com/joyent/http-parser/): a lightweight C library which handles HTTP parsing.
+* [http-parser](https://github.com/joyent/http-parser/): a lightweight C library which handles HTTP parsing
 * [c-areas](http://c-ares.haxx.se/docs.html): used for some asynchronous DNS requests
 * [OpenSSL](https://www.openssl.org/docs/): used extensively in both the `tls` and `crypto` modules
 * [zlib](http://www.zlib.net/manual.html): used for fast compression and decompression
 
-Read more about [node dependencies](https://nodejs.org/en/docs/meta/topics/dependencies/)
+Read more about [node dependencies](https://nodejs.org/en/docs/meta/topics/dependencies/).
 
 
