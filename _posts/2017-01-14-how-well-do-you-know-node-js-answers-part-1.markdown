@@ -7,7 +7,8 @@ category: Node.js
 ---
 
 Recently I came across a blog post titled [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar). In it, Samer Buna lists 48
-questions which be expects a Node.js developer to be able to answer. This post is part 1 of my attempt to provide answers to these questions.
+questions which be expects a Node.js developer to be able to answer. This post is part 1 of my attempt to provide answers to these questions. 
+You can check out [part 2]({% post_url 2017-01-18-how-well-do-you-know-node-js-answers-part-2 %}).
 
 ### What is the relationship between Node.js and V8? Can Node work without V8?
 V8 is a JavaScript engine developed by The Chromium Project, first for the Google Chrome web browser and later for other projects, including Node.js.
@@ -165,4 +166,5 @@ Beside V8 and libuv, node has several other dependencies:
 
 Read more about [node dependencies](https://nodejs.org/en/docs/meta/topics/dependencies/).
 
-
+---
+Well, that's it for part 1. You can check out the rest at [part 2]({% post_url 2017-01-18-how-well-do-you-know-node-js-answers-part-2 %})
