@@ -3,7 +3,8 @@ layout: post
 title: "How Well Do You Know Node.js? - Answers (Part 2)"
 date: 2017-01-18T09:40:00+02:00
 comments: true
-category: Node.js
+categories: [Node.js]
+tags: [Node.js]
 ---
 
 This is part 2 of my attempting to provide answers to the questions presented at [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar) blog post.

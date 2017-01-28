@@ -3,7 +3,8 @@ layout: post
 title: "How Well Do You Know Node.js? - Answers (Part 1)"
 date: 2017-01-14T17:48:05+02:00
 comments: true
-category: Node.js
+categories: [Node.js]
+tags: [Node.js]
 ---
 
 Recently I came across a blog post titled [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar). In it, Samer Buna lists 48

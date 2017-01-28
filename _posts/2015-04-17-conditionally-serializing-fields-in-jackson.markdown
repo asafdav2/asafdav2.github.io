@@ -4,6 +4,7 @@ title: "Conditionally serializing fields using Jackson"
 date: 2015-04-17 19:11:57 +0300
 comments: true
 categories: [Java, Jackson]
+tags: [Java, Jackson]
 ---
 
 When interacting with some REST API, we often deal with serialization of Java objects to JSON strings.

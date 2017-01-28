@@ -3,7 +3,8 @@ layout: post
 title: "RabbitMQ - Persistency vs Durability"
 date: 2017-01-27T17:48:05+02:00
 comments: true
-category: RabbitMQ
+categories: [RabbitMQ]
+tags: [RabbitMQ]
 ---
 
 Once you start getting serious with RabbitMQ, around the time you graduate from running small tests on your laptop to actually processing real production data, is usually the time

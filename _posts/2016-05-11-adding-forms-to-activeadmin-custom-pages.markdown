@@ -2,7 +2,8 @@
 layout: post
 title:  "Adding forms to ActiveAdmin custom pages"
 date:   2016-05-11 15:52:18 +0300
-category: Rails
+categories: [Rails]
+tags: [Rails]
 ---
 
 [ActiveAdmin][activeadmin] is an administration framework for Ruby on Rails applications. It allows to easily create admin pages to manage rails entities, offering out-of-the-box CRUD functionality.
