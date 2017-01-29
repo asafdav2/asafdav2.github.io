@@ -1,5 +1,5 @@
 # Site settings
-title: I pity the foo!
+title: I pity the foo()!
 description: "Asaf's technical blog"
 url: 'https://asafdav2.github.io/'
 baseurl: '/'
