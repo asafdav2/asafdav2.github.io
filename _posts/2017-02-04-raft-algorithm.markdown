@@ -3,8 +3,7 @@ layout: post
 title: "Distributed consensus and the Raft algorithm"
 date: 2017-02-04T00:00:00+02:00
 comments: true
-categories: [Distributed Systems]
-tags: [Distributed Systems]
+tags: [distributed-systems]
 ---
 
 [Raft](https://raft.github.io/) is an algorithm for distributed consensus, created by Diego Ongaro and John Ousterhout from Stanford University. The main drive for the creation of Raft 
@@ -12,7 +11,9 @@ was the fact that [Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science)
 very hard to understand. The authors' intention thus was to come up with a different, *easy to understand* distributed consensus algorithm. 
 In this post I will try to give an introduction to the Raft algorithm.
 
-![Header](/images/raft/header.jpg)
+<!-- more -->
+
+![Header](/public/img/raft/header.jpg)
 
 Distributed consensus and Replicated state machines
 ---------------------------------------------------
@@ -45,7 +46,7 @@ to being a follower and updates his term number. Nodes persists his term number 
 
 ### Commands log
 As mentioned above, *commands* causes transitions in the node's state machine. Commands are not applied immediately. Instead, each node maintains a *commands log*:
-![Commands log](/images/raft/commands_log.png)
+![Commands log](/public/img/raft/commands_log.png)
 [diagram credit](https://raft.github.io/slides/uiuc2016.pdf)
 
 As can be seen, commands are arranged by index. Each command is held with its term number. 
@@ -74,7 +75,7 @@ The requirement for a majority of votes ensures that only at most one leader wil
 be selected (liveness).
 
 The leader election flow is summarized in the following chart:
-![Leader election flow](/images/raft/leader_election_flow.png)
+![Leader election flow](/public/img/raft/leader_election_flow.png)
 
 Log  replication
 ----------------
@@ -96,7 +97,7 @@ Raft is able to detect and fix inconsistencies in the commands logs between diff
 To maintain this property, the leader includes in the `APPEND ENTRIES` message the `<index, term>` of the entry preceding the new one(s). When a follower receives such message,
 it first checks of the `<index, term>` exists in his log. If not, it rejects and the leader retries with lower log index.
 
-![Logs consistency check](/images/raft/logs_consistency_check.png)
+![Logs consistency check](/public/img/raft/logs_consistency_check.png)
 [diagram credit](https://raft.github.io/slides/uiuc2016.pdf)
 
 References

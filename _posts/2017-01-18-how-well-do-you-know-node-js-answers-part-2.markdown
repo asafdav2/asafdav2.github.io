@@ -3,12 +3,12 @@ layout: post
 title: "How Well Do You Know Node.js? - Answers (Part 2)"
 date: 2017-01-18T09:40:00+02:00
 comments: true
-categories: [Node.js]
-tags: [Node.js]
+tags: [node-js]
 ---
 
 This is part 2 of my attempting to provide answers to the questions presented at [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar) blog post.
 If you haven't, I suggest you check out [part 1]({% post_url 2017-01-14-how-well-do-you-know-node-js-answers-part-1 %}).
+<!-- more -->
 
 ### What’s the problem with the process `uncaughtException` event? How is it different than the exit event?
 The `uncaughtException` event is emitted when an uncaught Javascript exception bubbles all the way back to the event loop. Once
@@ -23,7 +23,7 @@ The `exit` event is emitted when the Node.js process is about the exit as a resu
 ### What does the `_` mean inside of Node’s REPL?
 Node's REPL always sets `_` to the result of the last expression.
 
-``` javascript
+{% highlight javascript %}
 > 2
 2
 > _
@@ -33,7 +33,7 @@ Node's REPL always sets `_` to the result of the last expression.
 > _
 4
 >
-```
+{% endhighlight %}
 
 ### Do Node buffers use V8 memory? Can they be resized?
 No to both questions - Node.js buffers correspond to *fixed-sized*, raw memory allocations *outside* the V8 heap.
@@ -52,7 +52,7 @@ The `Array.prototype.slice()` method returns a shallow copy of a portion of an a
 The `string_decoder` is useful for decoding a `Buffer` instance into strings while preserving endoded multi-byte UTF-8 / UTF-16 characters.
 In oppose to simple buffer cast to string, the `string_decodure` can detect incomplete multibyte characters and handle them. For example:
 
-``` javascript
+{% highlight javascript %}
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 
@@ -62,7 +62,7 @@ const incompleteEuro = Buffer.from([0xE2, 0x82]);
 console.log(decoder.write(euro)); // prints '€'
 console.log(incompleteEuro.toString('utf8')); // prints '��'
 console.log(decoder.write(incompleteEuro)); // prints '' 
-```
+{% endhighlight %}
 
 ### What are the 5 major steps that the `require` function does?
 1. Check `Module._cache` for the cached module
@@ -102,7 +102,7 @@ most likely not OK when writing a server that should handle multiple clients con
 ### How can you print only one level of a deeply nested object?
 You can use the [`util.inspect`](https://nodejs.org/api/util.html#util_util_inspect_object_options) method.
 
-``` javascript
+{% highlight javascript %}
 const obj = {
   a: "a",
   b: {
@@ -119,7 +119,7 @@ const obj = {
 const util = require('util');
 console.log(util.inspect(obj, {depth: 0})); // prints: '{ a: \'a\', b: [Object]}'
 console.log(util.inspect(obj, {depth: null})); // prints: '{ a: \'a\', b: { c: \'c\', d: { e: \'e\', f: { g: \'g\' } } } }'
-```
+{% endhighlight %}
 
 ### What is the node-gyp package used for?
 `node-gyp` is a cross-platform CLI tool used for compiling native addon modules for Node.js. It bundles [gyp](https://gyp.gsrc.io/) (**G**enerate **Y**our **Project**), 
@@ -129,11 +129,11 @@ produces a `Makefile`.
 ### The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?
 Before a module's code is executed, Node.js wraps it in the following code:
 
-``` javascript
+{% highlight javascript %}
 (function (exports, require, module, __filename, __dirname) {
 // Your module code actually lives in here
 });
-```
+{% endhighlight %}
 
 This means that while `exports`, `require` and `module` appear to be global variables, they're actually specific to the module
 
@@ -144,13 +144,13 @@ as arguments, so these arguments will be printed.
 ### How can a module be both requirable by other modules and executable directly using the node command?
 A module can detect if its being requirable or executed directly by inspecting the `require.main` value:
 
-``` javascript
+{% highlight javascript %}
 if (require.main === module) {
     console.log('called directly');
 } else {
     console.log('required as a module');
 }
-```
+{% endhighlight %}
 
 See [Accessing the main module](https://nodejs.org/docs/latest/api/all.html#modules_accessing_the_main_module)
 
@@ -180,9 +180,9 @@ The `--inspect` argument allows to attache Chrome DevTools to Node.js instances 
 ### When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?
 `.pipe()` is a function that takes a readable source stream `src` and hooks the output to a destination writable stream `dst`
 
-``` javascript
+{% highlight javascript %}
 src.pipe(dst)
-```
+{% endhighlight %}
 
 essentialy it means that `.pipe()` takes care of listening for `data` and `end` events from `src`. So, to answer the questions,
 using `.pipe()` can make the code more straight forward when this is the functionaly you're interested in. Events can be used

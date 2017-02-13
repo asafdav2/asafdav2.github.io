@@ -1,39 +1,64 @@
-# Site settings
-title: I pity the foo()!
-description: "Asaf's technical blog"
-url: 'https://asafdav2.github.io/'
-baseurl: '/'
-google_analytics: 'UA-54999211-2'
-disqus_shortname: 'i-pity-the-foo'
+# Site Info
+title: I Pity the foo()!
+tagline: "Asaf's technical blog"
+description: ""
+baseurl: ""
+url: http://asafdav2.github.io
+logo: "/public/logo.png"
 
-author:
-  name: 'Asaf David'
-  email: asafdav2@gmail.com
-  twitter_username: asafdavid
-  facebook_username: ipitythefooblog
-  github_username: asafdav2
-  linkedin_username: asafdavid
-
-defaults:
-  -
-    scope:
-      path: ''
-      type: 'posts'
-    values:
-        layout: 'post'
-
-# Build settings
-destination: _site
-paginate: 10
-permalink: /:year/:title/
+# Site configurations
+gems:
+  - jekyll-paginate
 markdown: kramdown
-highlighter: rouge
-
 kramdown:
-  # use Github Flavored Markdown
   input: GFM
-  # do not replace newlines by <br>s
-  hard_wrap: false
+excerpt_separator: "<!-- more -->"
+sass:
+  style: compressed
+  sass_dir: _scss    
+paginate: 5
+paginate_path: "/page/:num"
+permalink: "/:year/:title"
 
-gems: ['jekyll-paginate']
-exclude: ['README.md', 'Gemfile', 'Gemfile.lock']
+version: 1.0.0
+
+# About/contact
+author:
+  name: Asaf David
+  description: Software Developer
+  gravatar: fe163847eaf770ac6d7a801a547ecc4a # md5 hash of your email address
+  contact:
+    linkedin:  https://www.linkedin.com/in/asafdavid
+    github:    https://github.com/asafdav2
+    facebook:  https://www.facebook.com/ipitythefooblog
+    twitter:   https://twitter.com/asafdavid
+    # weibo:     http://weibo.com/41173780
+    # email:     http://www.google.com/recaptcha/mailhide/d?k=01I3lZFiZYng9N3QxYEtsDaQ==&c=31wAnZkuKqcG0ATAqJN8Z3ln5kkYLA9TwkGc-IbygpM=
+
+# Navigation (2nd level links supported)
+nav:
+#  Home:           
+#    - '/home'
+  Blog:           
+    - '/'
+#    - { Categories: '/categories/' }
+    - { Tags: '/tags/' }
+#  About:          
+#    - '/about/'
+  Github: 
+    - 'http://www.github.com/asafdav2'
+
+# Where are tags and categories displayed
+tag_page: '/tags/'
+category_page: '/categories/'
+
+hero:
+  image: /public/img/profile.jpg
+  caption: Original Artwork &copy; <a href="http://yalestewart.deviantart.com/art/We-Will-Be-Giants-370176475">Yale Stewart</a>
+
+# Puglins
+mathjax: true
+google_analytics_token: 'UA-54999211-2'
+disqus_short_name: 'i-pity-the-foo'
+
+

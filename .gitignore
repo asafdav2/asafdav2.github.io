@@ -1,6 +1,7 @@
 _site
 .idea
 .sass-cache
+.asset-cache
 .jekyll-metadata
 *.sublime-project
 *.sublime-workspace

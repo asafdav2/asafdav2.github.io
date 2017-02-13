@@ -2,13 +2,12 @@
 layout: post
 title:  "Adding forms to ActiveAdmin custom pages"
 date:   2016-05-11 15:52:18 +0300
-categories: [Rails]
-tags: [Rails]
+tags: [rails]
 ---
 
 [ActiveAdmin][activeadmin] is an administration framework for Ruby on Rails applications. It allows to easily create admin pages to manage rails entities, offering out-of-the-box CRUD functionality.
 Sometimes, however, you need some bit of funcionality that is out of scope of a single resource.
-
+<!-- more -->
 
 The solution is to use [custom pages][activeadmin-custompages], which are not tied to
 a single entity. The documentation explains how to add content and actions to custom page, but not forms. In my case, I had to create a custom page containing a very simple form,

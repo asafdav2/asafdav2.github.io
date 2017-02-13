@@ -3,13 +3,12 @@ layout: post
 title: "How does Node.js manage timers internally"
 date: 2017-02-11T00:00:00+02:00
 comments: true
-categories: [Node.js]
-tags: [Node.js]
+tags: [node-js]
 ---
                                                                                                                       
 Timers are an essential part in the Javascript developer tool set. The timers API has been with us a long time, dating back to the days when Javascript was limited to the browser.
 This API provides us with the `setTimeout`, `clearTimeout`, `setInterval` and `clearInterval` methods which allows us to schedule code for later execution, either once or repeatedly. 
-
+<!-- more -->
 Thanks to Node.js [timer module]( https://nodejs.org/api/timers.html), these methods (along with a few others, such as `setImmediate` and `clearImmediate`) are also available natively 
 in node code. On top of user code and 3rd-party libraries using timers, timers are also used internally by the Node.js platform itself. For example, a dedicated 
 timer is used with each TCP connection to detect a possible connection timeout. It's very possible that Node.js will have to manage a large number of timers, so it's important that 
@@ -31,19 +30,19 @@ Perhaps unintuitively, `_idleNext` points to the **older** item, while `_idlePre
 
 Let's look at the `init` function:
 
-``` javascript
+{% highlight javascript %}
 function init(list) {
   list._idleNext = list;
   list._idlePrev = list;
 }
-```
+{% endhighlight %}
 
 In the root object, `_idleNext` points to the *head* of the list (the oldest element) and `_idlePrev` points to the *tail* of the list (the newest element).
 Initially, both point to the list root itself. 
 
 Let's continue and look at the `append` and `remove` functions. Notice that `append` first calls `remove` to ensure the list is unique.
 
-``` javascript
+{% highlight JavaScript %}
 function append(list, item) {
   if (item._idleNext || item._idlePrev) {
     remove(item);
@@ -68,37 +67,37 @@ function remove(item) {
   item._idleNext = null;
   item._idlePrev = null;
 }
-```
+{% endhighlight %}
 
 Notice that at no point we actually traverse the list. Thus, `append` and `remove` are very efficient, $$O(1)$$ operations.
 
 To make this a bit more concrete, lets initialize a new list and append two items. We'll show the objects graph after initialization and 
 after each append.
 
-``` javascript
+{% highlight JavaScript %}
 const list = { name: 'list'};
 const A    = { name: 'A' };
-const B    = { name: 'B' };                                                 
+const B    = { name: 'B' };
 
 init(list);
 init(A);
 init(B);
 
-append(list, A);                                                              
+append(list, A);
 append(list, B);
-```
+{% endhighlight %}
 
 Here's a diagram of the list right after initialization:
 
-![Linked list after initialization](/images/node_js_timers/linked_list_1.png)
+![Linked list after initialization](/public/img/node_js_timers/linked_list_1.png)
 
 Here's how it looks after a first append:
 
-![Linked list after first append](/images/node_js_timers/linked_list_2.png)
+![Linked list after first append](/public/img/node_js_timers/linked_list_2.png)
 
 Here's how it looks after a second append:
 
-![Linked list after second append](/images/node_js_timers/linked_list_3.png)
+![Linked list after second append](/public/img/node_js_timers/linked_list_3.png)
 
 
 From this point, I think it's quite clear how later appends will look.
@@ -113,7 +112,7 @@ Node.js uses this and organizes the Timers by indexing them according to their `
 by creation time (there are actually two indexes, one for `refed` timers and one for `unrefed` timers, but we'll ignore this fact for now. See 
 [here](https://nodejs.org/api/timers.html#timers_class_timeout) to read about the difference). 
 
-![Indexing timers by msec](/images/node_js_timers/refed_timers.png)
+![Indexing timers by msec](/public/img/node_js_timers/refed_timers.png)
 
 In this example, we initialized 6 timers. `T1`,`T2`,`T3` were initialized with 50 msec, `T4` with 10 msec and `T5,T6` with 200 msec.
 
@@ -122,7 +121,7 @@ Since we know the timers in each list are ordered by non-decreasing timeout, a s
 
 In pseudo code, the (a bit simplified) strategy on timeout is as follows:
 
-``` javascript
+{% highlight python %}
 for each timer t in the list L(msec):
   diff := now() - t.start_time
   if diff < msec:
@@ -130,7 +129,7 @@ for each timer t in the list L(msec):
     t.start(remaining)
     return
   L.remove(t)
-```
+{% endhighlight %}
 
 Once the last timer in a list timeouts, we can remove the list's `msec` key and free the backing native timer.
 Same as the `append` and `remove` operations on linked lists, the timeout operation runs in constant time, regardless the number of scheduled timers. 
