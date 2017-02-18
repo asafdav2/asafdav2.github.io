@@ -6,8 +6,8 @@ comments: true
 tags: [node-js]
 ---
 
-This is part 2 of my attempting to provide answers to the questions presented at [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar) blog post.
-If you haven't, I suggest you check out [part 1]({% post_url 2017-01-14-how-well-do-you-know-node-js-answers-part-1 %}).
+This is part 2 of my atempt to provide answers to the questions presented at [How well do you know Node.js?](https://edgecoders.com/how-well-do-you-know-node-js-36b1473c01c8#.sxqlki3ar) blog post.
+[part 1 is here]({% post_url 2017-01-14-how-well-do-you-know-node-js-answers-part-1 %}) in case you missed it.
 <!-- more -->
 
 ### What’s the problem with the process `uncaughtException` event? How is it different than the exit event?
