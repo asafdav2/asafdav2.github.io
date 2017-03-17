@@ -9,6 +9,9 @@ tags: [node-js]
 Timers are an essential part in the Javascript developer tool set. The timers API has been with us a long time, dating back to the days when Javascript was limited to the browser.
 This API provides us with the `setTimeout`, `clearTimeout`, `setInterval` and `clearInterval` methods which allows us to schedule code for later execution, either once or repeatedly. 
 <!-- more -->
+
+![Header](/public/img/node_js_timers/header.jpg)
+
 Thanks to Node.js [timer module]( https://nodejs.org/api/timers.html), these methods (along with a few others, such as `setImmediate` and `clearImmediate`) are also available natively 
 in node code. On top of user code and 3rd-party libraries using timers, timers are also used internally by the Node.js platform itself. For example, a dedicated 
 timer is used with each TCP connection to detect a possible connection timeout. It's very possible that Node.js will have to manage a large number of timers, so it's important that 
