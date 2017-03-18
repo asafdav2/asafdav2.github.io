@@ -1,0 +1,59 @@
+---
+layout: post
+title: "detecting high server load using toobusy.js"                                                                                                                 
+date: 2017-03-18T17:00+02:00
+comments: true
+tags: [node.js]
+---
+
+[toobusy.js](https://github.com/STRML/node-toobusy) is a nice little Node.js library that helps you detect when your server is 
+experiencing high load. The idea is that when your server is overwhelmed with requests, it is better to drop some requests than to 
+stop working altogether. 
+
+<!-- more -->
+
+![Header](/public/img/toobusy.js/header.jpg)
+
+toobusy.js works by measuring the *lag*, the duration an event is delayed in the event loop until it gets served. A server is considered *busy* if
+the lag gets above some predefined threshold.
+
+There are two ways you can interact with toobusy.js: you can either register to a `LAG_EVENT` event which fires once the server is found to be busy, 
+or you can actively query the busy state by calling the `toobusy()` predicate.
+
+Two examples for places you can use toobusy are in a middleware which returns Service Unavailable (HTTP status code 503) to client if server is busy,
+or in a health check endpoint which your load balancer pings.
+
+Notice that in this post I'm referring to a fork of the [original library](https://github.com/lloyd/node-toobusy). This fork has rewritten the code using 
+pure Javascript, replacing the native C++ code used by the original.
+
+Measuring the event loop lag
+----------------------------
+toobusy.js works by setting up a repeated event to fire every `interval` ms, and measuring the time difference between successive 
+invocations. As we know, once an event is triggered it gets pushed to the back of the events queue, 
+but it only gets handled when all prior event handlers have finished and it reaches the head of the queue. Thus the event loop lag is 
+equal to the difference between the time passed since the previous event was handled and the interval itself.
+
+{% highlight javascript %}
+let interval = 500; // the default value, can be tweaked
+let lastTime = Date.now();
+setInterval(function() {
+  const now = Date.now();
+  let lag = now - lastTime;
+  lag = Math.max(0, lag - interval);
+}, interval);
+{% endhighlight %}
+
+Smoothing the measurement
+-------------------------
+It is normal for the measured lags time series to be quite erratic. Just like your CPU usage, it experiences many small spikes
+and they should not immediately indicate a high load event.
+
+To reduce false positives, toobusy.js uses two techniques:
+
+* It smoothes the lag series fluctuations by applying [exponential smoothing](https://en.wikipedia.org/wiki/ExponentialSmoothing/). Assuming `currentLag`
+is the ongoing lag series and `lag` is the lag just measured, we use $$currentLag = \frac{1}{3} \cdot lag + \frac{2}{3} \cdot currentLag$$.
+
+* Use some randomness. Even if `currentLag` goes over the threshold, the process is not always 'too busy'. The farther it goes over the 
+threshold, the more likely the process will be considered too busy. The percentage is equal to the percent over the max lag threshold. So 
+1.25x over the maxLag will indicate too busy 25% of the time. 2x over the maxLag threshold will indicate too busy 100% of the time. 
+
